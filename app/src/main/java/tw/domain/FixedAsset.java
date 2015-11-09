@@ -12,7 +12,6 @@ public class FixedAsset {
     }
 
     public FixedAsset(String uniqueNumber, Double originalWorth, String lifetime, String startDate) {
-
         this.uniqueNumber = uniqueNumber;
         this.originalWorth = originalWorth;
         this.lifetime = lifetime;

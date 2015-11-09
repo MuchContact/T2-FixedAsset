@@ -28,7 +28,7 @@ flyway {
     driver = 'com.mysql.jdbc.Driver'
     user = 'root'
     password = 'admin'
-    url = 'jdbc:mysql://localhost:3307/asset'
+    url = 'jdbc:mysql://localhost:3307/fixedasset'
 }
 
 ext {

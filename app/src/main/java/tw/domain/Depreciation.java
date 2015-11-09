@@ -5,14 +5,11 @@ public class Depreciation {
     private String accountDay;
     private String policy;
 
-    public Depreciation(Integer id, String accountDay, String policy) {
-        this.id = id;
-        this.accountDay = accountDay;
-        this.policy = policy;
+    public Depreciation(){
+
     }
 
     public Depreciation(String accountDay, String policy) {
-
         this.accountDay = accountDay;
         this.policy = policy;
     }
@@ -28,4 +25,6 @@ public class Depreciation {
     public String getPolicy() {
         return policy;
     }
+
+
 }
