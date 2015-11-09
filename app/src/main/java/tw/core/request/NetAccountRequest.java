@@ -33,7 +33,7 @@ public class NetAccountRequest {
         double newAmount = fixedAsset.getLatestNetWorth().getAmount();
 
         if(repairMode){
-            newAmount = fixedAsset.getLatestNetWorth().getAmount() + repairment.calculatChangedAmount();
+            newAmount = fixedAsset.getLatestNetWorth().getAmount() + repairment.calculateChangedAmount();
             newAmount -= fixedAsset.getPolicy().getDecreasedAmount(fixedAsset, repairment.getRepairDate());
         }else{
             if(depreciation!=null)

@@ -9,7 +9,7 @@ public class Repairment {
         this.amount = amount;
     }
 
-    public double calculatChangedAmount() {
+    public double calculateChangedAmount() {
         return amount;
     }
 
