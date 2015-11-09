@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tw.mapper.FixedAssetMapper">
+    <resultMap id="fixedAsset" type="tw.domain.FixedAsset">
+        <id property="id" column="id"/>
+        <result property="uniqueNumber" column="uniqueNumber"/>
+        <result property="originalWorth" column="originalWorth"/>
+        <result property="lifetime" column="lifetime"/>
+        <result property="startDate" column="startDate"/>
+    </resultMap>
+    <insert id="addFixedAsset" useGeneratedKeys="true" keyProperty="fixedAsset.id">
+        INSERT INTO fixedasset(uniqueNumber, originalWorth, lifetime, startDate) VALUES
+        (#{fixedAsset.uniqueNumber}, #{fixedAsset.originalWorth}, #{fixedAsset.lifetime}, #{fixedAsset.startDate})
+    </insert>
+    <select id="findFixedAssetById" resultMap="fixedAsset">
+        SELECT uniqueNumber, originalWorth, lifetime, startDate from fixedasset WHERE id = #{assetid}
+    </select>
+</mapper>

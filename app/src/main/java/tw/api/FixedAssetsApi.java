@@ -22,8 +22,10 @@ public class FixedAssetsApi {
     public Response getDepreciations(@Context UriInfo uri,
                                      @PathParam("id") int id,
                                      @FormParam("accountDay") String accountDay,
-                                     @FormParam("policy") String policy){
+                                     @FormParam("policy") String policy,
+                                     @BeanParam DepreciationMapper mapper){
         Depreciation depreciation = new Depreciation(accountDay, policy);
+        mapper.addDepreciation(depreciation);
         Map<String, Object> map = new HashMap<>();
         map.put("id", depreciation.getId());
         map.put("URI", uri.getAbsolutePath()+"/"+depreciation.getId());

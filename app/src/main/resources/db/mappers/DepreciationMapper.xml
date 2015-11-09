@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tw.mapper.DepreciationMapper">
+    <insert id="addDepreciation" useGeneratedKeys="true" keyProperty="depreciation.id">
+        INSERT INTO depreciation (accountDay, policy) VALUES (#{depreciation.accountDay}, #{depreciation.policy})
+    </insert>
+    <select id="findDepreciationById" resultType="tw.domain.Depreciation">
+        SELECT * from depreciation where id = #{depreId}
+    </select>
+</mapper>

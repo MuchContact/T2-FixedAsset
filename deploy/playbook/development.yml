@@ -20,16 +20,16 @@
   sudo: yes
   vars:
     mysql_db:
-         - name: expense
+         - name: fixedasset
            replicate: no
 
     mysql_users:
-         - name: mysql
-           pass: mysql
+         - name: root
+           pass: admin
            priv: "*.*:ALL"
            host: "%"
-         - name: mysql
-           pass: mysql
+         - name: root
+           pass: admin
            priv: "*.*:ALL"
            host: "localhost"
 

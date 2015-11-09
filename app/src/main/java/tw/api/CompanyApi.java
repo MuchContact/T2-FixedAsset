@@ -4,6 +4,7 @@ import tw.domain.FixedAsset;
 import tw.domain.Policy;
 import tw.domain.json.FixedAssetRefJson;
 import tw.domain.json.PolicyRefJson;
+import tw.mapper.FixedAssetMapper;
 import tw.mapper.PolicyMapper;
 
 import javax.ws.rs.*;
@@ -22,14 +23,16 @@ public class CompanyApi {
                                     @FormParam("title") String title,
                                     @FormParam("formula") String formula,
                                     @FormParam("type") String type,
-                                    @FormParam("category") String category){
+                                    @FormParam("category") String category,
+                                    @BeanParam PolicyMapper mapper) {
         Policy policy = new Policy(title, formula, type, category);
+        mapper.addNewPolicy(policy);
         PolicyRefJson policyRefJson = new PolicyRefJson(policy, uri);
         return Response.status(201).entity(policyRefJson).build();
     }
 
     @Path("/policies/{pid}")
-    public PolicyApi getPolicy(@PathParam("pid") int policyId, @BeanParam PolicyMapper policyMapper){
+    public PolicyApi getPolicy(@PathParam("pid") int policyId, @BeanParam PolicyMapper policyMapper) {
         Policy policy = policyMapper.getPolicyById(policyId);
         return new PolicyApi(policy);
     }
@@ -38,22 +41,25 @@ public class CompanyApi {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFixedAssets(@Context UriInfo uri,
-                                         @FormParam("unique_number") String uniqueNumber,
-                                         @FormParam("original worth") double originalWorth,
-                                         @FormParam("lifetime") String lifetime,
-                                         @FormParam("start date") String startDate){
+                                   @FormParam("unique_number") String uniqueNumber,
+                                   @FormParam("original worth") double originalWorth,
+                                   @FormParam("lifetime") String lifetime,
+                                   @FormParam("start date") String startDate,
+                                   @BeanParam FixedAssetMapper mapper) {
+
         FixedAsset fixedAsset = new FixedAsset(uniqueNumber, originalWorth, lifetime, startDate);
+        mapper.addFixedAsset(fixedAsset);
         FixedAssetRefJson fixedAssetRefJson = new FixedAssetRefJson(fixedAsset, uri);
         Map<String, Object> map = new HashMap<>();
         map.put("id", fixedAsset.getId());
         map.put("uniqueNumber", fixedAssetRefJson.getUniqueNumber());
         map.put("URI", fixedAssetRefJson.getUri());
-        map.put("forwardURI", fixedAssetRefJson.getUri()+"/net accounting request");
+        map.put("forwardURI", fixedAssetRefJson.getUri() + "/net accounting request");
         return Response.status(302).entity(map).build();
     }
 
     @Path("/fixed assets")
-    public FixedAssetsApi getFixedAssets(){
+    public FixedAssetsApi getFixedAssets() {
         return new FixedAssetsApi();
     }
 }

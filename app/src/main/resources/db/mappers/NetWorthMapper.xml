@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tw.mapper.NetWorthMapper">
+    <insert id="createNewNetWorth" useGeneratedKeys="true" keyProperty="netWorth.id">
+          INSERT INTO  net_worth (amount, accountDay, accountant, referencedFixedAssetId, referencedDepreciationId) VALUES
+          (#{netWorth.amount}, #{netWorth.accountDay}, #{netWorth.accountant}, #{fixedAssetById.id}, #{depreciationById.id})
+    </insert>
+    <select id="findNetWorthById" resultType="tw.domain.NetWorth">
+        SELECT amount, accountDay, accountant, referencedFixedAssetId, referencedDepreciationId from net_worth where id=#{id}
+    </select>
+</mapper>

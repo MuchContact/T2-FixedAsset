@@ -11,7 +11,7 @@ public class FixedAsset {
         return id;
     }
 
-    public FixedAsset(String uniqueNumber, double originalWorth, String lifetime, String startDate) {
+    public FixedAsset(String uniqueNumber, Double originalWorth, String lifetime, String startDate) {
 
         this.uniqueNumber = uniqueNumber;
         this.originalWorth = originalWorth;
