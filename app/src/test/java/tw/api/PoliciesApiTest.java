@@ -8,6 +8,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import tw.domain.Policy;
+import tw.mapper.DepreciationMapper;
+import tw.mapper.FixedAssetMapper;
+import tw.mapper.NetWorthMapper;
 import tw.mapper.PolicyMapper;
 
 import javax.ws.rs.client.Entity;
@@ -29,16 +32,27 @@ public class PoliciesApiTest extends JerseyTest {
     @Mock
     PolicyMapper policyMapper;
 
+    @Mock
+    FixedAssetMapper assetMapper;
+
+    @Mock
+    DepreciationMapper depreciationMapper;
+
+    @Mock
+    NetWorthMapper netWorthMapper;
+
     @Override
     protected Application configure() {
         return new ResourceConfig().packages("tw.api").register(new AbstractBinder() {
             @Override
             protected void configure() {
                 bind(policyMapper).to(PolicyMapper.class);
+                bind(assetMapper).to(FixedAssetMapper.class);
+                bind(depreciationMapper).to(DepreciationMapper.class);
+                bind(netWorthMapper).to(NetWorthMapper.class);
             }
         });
     }
-
     @Test
     public void should_create_a_policy() throws Exception {
         Form form  = new Form();
@@ -72,4 +86,6 @@ public class PoliciesApiTest extends JerseyTest {
         assertThat(result.get("category"), is("depreciation"));
 
     }
+
+
 }

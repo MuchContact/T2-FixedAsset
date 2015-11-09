@@ -1,6 +1,8 @@
 package tw.api;
 
+import tw.domain.FixedAsset;
 import tw.domain.Policy;
+import tw.domain.json.FixedAssetRefJson;
 import tw.domain.json.PolicyRefJson;
 import tw.mapper.PolicyMapper;
 
@@ -9,6 +11,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CompanyApi {
     @Path("/policies")
@@ -28,5 +32,28 @@ public class CompanyApi {
     public PolicyApi getPolicy(@PathParam("pid") int policyId, @BeanParam PolicyMapper policyMapper){
         Policy policy = policyMapper.getPolicyById(policyId);
         return new PolicyApi(policy);
+    }
+
+    @Path("/fixed assets")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFixedAssets(@Context UriInfo uri,
+                                         @FormParam("unique_number") String uniqueNumber,
+                                         @FormParam("original worth") double originalWorth,
+                                         @FormParam("lifetime") String lifetime,
+                                         @FormParam("start date") String startDate){
+        FixedAsset fixedAsset = new FixedAsset(uniqueNumber, originalWorth, lifetime, startDate);
+        FixedAssetRefJson fixedAssetRefJson = new FixedAssetRefJson(fixedAsset, uri);
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", fixedAsset.getId());
+        map.put("uniqueNumber", fixedAssetRefJson.getUniqueNumber());
+        map.put("URI", fixedAssetRefJson.getUri());
+        map.put("forwardURI", fixedAssetRefJson.getUri()+"/net accounting request");
+        return Response.status(302).entity(map).build();
+    }
+
+    @Path("/fixed assets")
+    public FixedAssetsApi getFixedAssets(){
+        return new FixedAssetsApi();
     }
 }
